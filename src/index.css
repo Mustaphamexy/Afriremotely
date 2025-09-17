@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=Outfit:wght@100..900&display=swap');
+@import "tailwindcss";
+
+@theme {
+
+    --font-figtree: 'Figtree', sans-serif;
+    --font-outfit: 'Outfit', sans-serif;
+
+    --color-primary: #309689;
+    --color-primary-50: #ebf5f4;
+    --color-primary-100: #d7ebea;
+    --color-primary-200: #afd7d4;
+    --color-primary-300: #87c3bf;
+    --color-primary-400: #5fafa9;
+    --color-primary-500: #309689;
+    --color-primary-600: #26786e;
+    --color-primary-700: #1d5a52;
+    --color-primary-800: #133c37;
+    --color-primary-900: #0a1e1b;
+    --color-primary-950: #050f0e;
+
+    --color-secondary: #ebf5f4;
+    --color-secondary-50: #f9fdfc;
+    --color-secondary-100: #ebf5f4;
+    --color-secondary-200: #d7ebe9;
+    --color-secondary-300: #c3e1de;
+    --color-secondary-400: #afd7d3;
+    --color-secondary-500: #9bcdc8;
+    --color-secondary-600: #7ea4a0;
+    --color-secondary-700: #5e7b78;
+    --color-secondary-800: #3f5250;
+    --color-secondary-900: #1f2928;
+    --color-secondary-950: #101514;
+}
+
+body {
+    font-family: var(--font-outfit);
+  }
+
+
+
+.scrollbarnone::-webkit-scrollbar {
+  display: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-figtree);
+    font-weight: 600;
+  } 
+.scroll-container {
+  overflow-y: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.scroll-container::-webkit-scrollbar {
+  display: none;
+}
