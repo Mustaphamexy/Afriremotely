@@ -2,8 +2,11 @@ import React from 'react'
 import Button from '../components/UI/Button'
 import JobList from '../components/jobs/JobList';
 import { JobProvider } from '../context/JobContext'; // Changed from 'contexts' to 'context'
+import { useNavigate } from 'react-router-dom';
 
 const Jobsection = () => {
+
+  const navigate = useNavigate();
   return (
     <JobProvider>
       <div className='flex items-center mt-8'>

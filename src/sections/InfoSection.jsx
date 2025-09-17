@@ -33,7 +33,7 @@ const InfoSection = () => {
                 <div className='w-full max-w-2xl'>
                     <img src={officeImage} alt=""  className='rounded-md'/>
                 </div>
-                <div classname="">
+                <div>
                     <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6"> Good Life Begins <br />With A Good Company</h2>
                     <p className="text-gray-600 text-lg leading-relaxed mb-8 max-w-2xl ">
                         Finding the right career opportunity is more than just landing a job – it's about 
@@ -75,7 +75,7 @@ const InfoSection = () => {
             <div className='relative bg-gradient-to-r from-gray-900 via-black to-gray-900 rounded-3xl p-8 md:p-12 overflow-hidden'>
                 {/* Background Image */}
                 <div className='absolute inset-0 opacity-50'>
-                  <img src={infoImage} alt="" className='w-full h-full object-cover object- rounded-3xl'/>
+                  <img src={infoImage} alt="" className='w-full h-full object-cover  rounded-3xl'/>
                 </div>
 
                 {/* Content */}

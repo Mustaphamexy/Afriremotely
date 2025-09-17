@@ -1,2 +1,5 @@
 export const officeImage = '/assets/Office-Workers.jpeg'
 export const infoImage = '/assets/info-company3.jpeg'
+export const TeamImage = '/assets/Team-Collaboration.jpg'
+export const Handshake = '/assets/Handshake.jpg'
+export const Welcome = '/assets/Welcome.jpeg'

@@ -21,14 +21,14 @@ const Header = () => {
             <nav className='hidden md:flex items-center space-x-8'>
               <a onClick={() => navigate('/')} className="text-white hover:text-primary-400 transition-colors cursor-pointer">Home</a>
               <a onClick={() => navigate('/jobs')} className="text-neutral-300 hover:text-primary-400 transition-colors cursor-pointer">Jobs</a>
-              <a href="#" className="text-neutral-300 hover:text-primary-400 transition-colors cursor-pointer">About Us</a>
-              <a href="#" className="text-neutral-300 hover:text-primary-400 transition-colors cursor-pointer">Contact Us</a>
+              <a onClick={() => navigate('/about')} className="text-neutral-300 hover:text-primary-400 transition-colors cursor-pointer">About Us</a>
+              <a onClick={() => navigate('/contact')} className="text-neutral-300 hover:text-primary-400 transition-colors cursor-pointer">Contact Us</a>
             </nav>
           </div>
 
           <div className='flex items-center space-x-4'>
-            <Button variant="outline" size="md">Sign In</Button>
-            <Button variant="primary" size="md" className='hidden sm:block'>Sign Up</Button>
+            <Button onClick={() => navigate('/sign-in')} variant="outline" size="md">Sign In</Button>
+            <Button onClick={() => navigate('/sign-up')} variant="primary" size="md" className='hidden sm:block'>Sign Up</Button>
           </div>
         </div>
       </div>
