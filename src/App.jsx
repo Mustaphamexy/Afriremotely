@@ -9,6 +9,7 @@ import JobDetail from './pages/JobDetail';
 import { JobProvider } from './context/JobContext';
 import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './routes/ProtectedRoute';
+import NotFound from './pages/NotFound';
 
 
 
@@ -26,6 +27,7 @@ function App() {
         <Route path='/contact' element={<Contact />} />
         <Route path="/job/:id" element={<JobDetail />} />
         <Route path='/dashboard' element={<ProtectedRoute />} />
+        <Route path='*' element= {<NotFound />} />
       </Routes>
       </BrowserRouter>
     </JobProvider>
