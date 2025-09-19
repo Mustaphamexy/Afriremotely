@@ -8,6 +8,7 @@ import JobList from '../components/jobs/JobList';
 import Button from "../components/UI/Button"
 import { IoArrowBackSharp } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
+import { LuBookmarkPlus } from "react-icons/lu";
 
 
 
@@ -54,9 +55,20 @@ const JobDetail = () => {
                 <Button variant="primary" size="md" className="cursor-pointer flex items-center gap-2" onClick={() => navigate(-1)} >
           <IoArrowBackSharp /> Back
         </Button>
-        <Button variant="primary" size="md" className="cursor-pointer" >
+        <div className='flex gap-4'>
+            <div className="relative group flex flex-col items-center">
+                <LuBookmarkPlus className="w-12 h-12 text-primary cursor-pointer" />
+                {/* Tooltip */}
+                <span className="absolute top-[-2rem] opacity-0 group-hover:opacity-100 transition 
+                 bg-gray-800 text-white text-xs px-3 py-1 mt-2 rounded-md shadow-md whitespace-nowrap inline-block">
+                    Save Job
+                </span>
+
+            </div>
+            <Button variant="primary" size="md" className="cursor-pointer" >
           Apply
         </Button>
+        </div>
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Main Content */}
