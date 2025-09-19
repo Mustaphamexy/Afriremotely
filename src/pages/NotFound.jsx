@@ -11,7 +11,7 @@ const NotFound = () => {
   return (
     <div className='min-h-screen'>
         <Header />
-        <div className='pt-32 bg-black'>
+        <div className='pt-32 pb-12 bg-black'>
             <div className=' justify-center items-center text-center px-4'>
                 <h1 className='text-9xl font-extrabold mb-4 text-primary-500 '>404</h1>
                 <p className='mb-4 text-3xl font-bold text-white'>Oops! The page you’re looking for doesn’t exist.</p>
