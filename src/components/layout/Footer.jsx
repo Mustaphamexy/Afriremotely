@@ -1,11 +1,15 @@
 import React from 'react'
 import { useState } from 'react';
-const Footer = () => {
+import { useNavigate } from "react-router-dom";
 
+const Footer = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    setEmail('')
   }
 
   return (
@@ -27,27 +31,27 @@ const Footer = () => {
               <h3 className="text-lg font-semibold mb-4">Company</h3>
               <ul className="space-y-3">
               <li>
-                <a href="/about" className="text-neutral-400 hover:text-primary-400 transition-colors duration-200">
+                <a onClick={() => {navigate('/about'); window.scrollTo({ top: 0, behavior: "smooth" });}} className="text-neutral-400 hover:text-primary-400 transition-colors duration-200 cursor-pointer">
                   About Us
                 </a>
               </li>
               <li>
-                <a href="/team" className="text-neutral-400 hover:text-primary-400 transition-colors duration-200">
+                <a onClick={() => {navigate('/contact'); window.scrollTo({ top: 0, behavior: "smooth" });}} className="text-neutral-400 hover:text-primary-400 transition-colors duration-200 cursor-pointer">
                   Our Team
                 </a>
               </li>
               <li>
-                <a href="/partners" className="text-neutral-400 hover:text-primary-400 transition-colors duration-200">
+                <a onClick={() => {navigate('/partners'); window.scrollTo({ top: 0, behavior: "smooth" });}} className="text-neutral-400 hover:text-primary-400 transition-colors duration-200 cursor-pointer">
                   Partners
                 </a>
               </li>
               <li>
-                <a href="/candidates" className="text-neutral-400 hover:text-primary-400 transition-colors duration-200">
-                  For Candidates
+                <a onClick={() => {navigate('/job-seekers'); window.scrollTo({ top: 0, behavior: "smooth" });}} className="text-neutral-400 hover:text-primary-400 transition-colors duration-200 cursor-pointer">
+                  For Job Seekers
                 </a>
               </li>
               <li>
-                <a href="/employers" className="text-neutral-400 hover:text-primary-400 transition-colors duration-200">
+                <a onClick={() => {navigate('/employers'); window.scrollTo({ top: 0, behavior: "smooth" });}} className="text-neutral-400 hover:text-primary-400 transition-colors duration-200 cursor-pointer">
                   For Employers
                 </a>
               </li>
@@ -58,27 +62,27 @@ const Footer = () => {
             <h3 className="text-lg font-semibold mb-4">Job Categories</h3>
             <ul className="space-y-3">
               <li>
-                <a href="/jobs/telecommunications" className="text-neutral-400 hover:text-primary-400 transition-colors duration-200">
+                <a onClick={() => {navigate('/jobs'); window.scrollTo({ top: 0, behavior: "smooth" });}} className="text-neutral-400 hover:text-primary-400 transition-colors duration-200 cursor-pointer">
                   Telecommunications
                 </a>
               </li>
               <li>
-                <a href="/jobs/hotels-tourism" className="text-neutral-400 hover:text-primary-400 transition-colors duration-200">
+                <a onClick={() => {navigate('/jobs'); window.scrollTo({ top: 0, behavior: "smooth" });}} className="text-neutral-400 hover:text-primary-400 transition-colors duration-200 cursor-pointer">
                   Hotels & Tourism
                 </a>
               </li>
               <li>
-                <a href="/jobs/construction" className="text-neutral-400 hover:text-primary-400 transition-colors duration-200">
+                <a onClick={() => {navigate('/jobs'); window.scrollTo({ top: 0, behavior: "smooth" });}} className="text-neutral-400 hover:text-primary-400 transition-colors duration-200 cursor-pointer">
                   Construction
                 </a>
               </li>
               <li>
-                <a href="/jobs/education" className="text-neutral-400 hover:text-primary-400 transition-colors duration-200">
+                <a onClick={() => {navigate('/jobs'); window.scrollTo({ top: 0, behavior: "smooth" });}} className="text-neutral-400 hover:text-primary-400 transition-colors duration-200 cursor-pointer">
                   Education
                 </a>
               </li>
               <li>
-                <a href="/jobs/financial-services" className="text-neutral-400 hover:text-primary-400 transition-colors duration-200">
+                <a onClick={() => {navigate('/jobs'); window.scrollTo({ top: 0, behavior: "smooth" });}} className="text-neutral-400 hover:text-primary-400 transition-colors duration-200 cursor-pointer">
                   Financial Services
                 </a>
               </li>
@@ -117,14 +121,14 @@ const Footer = () => {
           </div>
           <div className="flex space-x-6">
             <a 
-              href="/privacy" 
-              className="text-neutral-400 hover:text-primary-400 text-sm underline transition-colors duration-200"
+              onClick={() => {navigate('/privacy-policy'); window.scrollTo({ top: 0, behavior: "smooth" });}} 
+              className="text-neutral-400 hover:text-primary-400 text-sm underline transition-colors duration-200 cursor-pointer"
             >
               Privacy Policy
             </a>
             <a 
-              href="/terms" 
-              className="text-neutral-400 hover:text-primary-400 text-sm underline transition-colors duration-200"
+              onClick={() => {navigate('/terms-conditions'); window.scrollTo({ top: 0, behavior: "smooth" });}} 
+              className="text-neutral-400 hover:text-primary-400 text-sm underline transition-colors duration-200 cursor-pointer"
             >
               Terms & Conditions
             </a>
