@@ -358,7 +358,7 @@ const SignUp = () => {
             {/* Sign In Link */}
             <p className="text-center text-neutral-600 mt-6">
               Already have an account?{' '}
-              <button className="text-primary-600 hover:text-primary-700 font-medium" onClick={() => navigate("/sign-in")}>
+              <button className="text-primary-600 hover:text-primary-700 font-medium cursor-pointer" onClick={() => navigate("/sign-in")}>
                 Sign In
               </button>
             </p>

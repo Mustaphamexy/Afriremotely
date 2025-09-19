@@ -2,8 +2,11 @@ import React from "react";
 import { FaBriefcase, FaClock, FaWallet  } from "react-icons/fa";
 import { IoLocationSharp } from "react-icons/io5";
 import Button from "../UI/Button";
+import { useNavigate } from "react-router-dom";
 
 const JobCard = ({ job }) => {
+
+  const navigate = useNavigate();
   const workModeColors = {
     remote: "bg-green-100 text-green-800",
     hybrid: "bg-blue-100 text-blue-800",
@@ -74,7 +77,7 @@ const JobCard = ({ job }) => {
       </div>
 
       <div className="flex justify-end">
-        <Button variant="primary" size="md" className="cursor-pointer" >
+        <Button variant="primary" size="md" className="cursor-pointer" onClick={() => {navigate(`/job/${job.id}`); window.scrollTo({ top: 0, behavior: "smooth" });}} >
           Job Details
         </Button>
       </div>

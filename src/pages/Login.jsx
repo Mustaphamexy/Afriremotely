@@ -2,17 +2,19 @@ import React, { useState } from "react";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import { Welcome } from "../components/UI/Details";
-
-
+import { useAuth } from "../context/AuthContext";
 
 const Login = () => {
-      const navigate = useNavigate();
+  const navigate = useNavigate();
+  const { login } = useAuth(); // ✅ get login from AuthContext
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -24,16 +26,18 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setError("");
     setIsLoading(true);
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    console.log("Login attempt:", formData);
 
-    setFormData({
-    email: "",
-    password: "",
-    });
+    const { email, password } = formData;
+    const result = await login(email, password); // ✅ call AuthContext login
+
+    if (result.success) {
+      navigate("/dashboard"); // ✅ redirect to dashboard
+    } else {
+      setError(result.error || "Invalid credentials");
+    }
+
     setIsLoading(false);
   };
 
@@ -43,6 +47,7 @@ const Login = () => {
 
   return (
     <div className="min-h-screen flex">
+      {/* Left Side */}
       <div className="hidden md:flex lg:w-1/2 relative">
         <div className="absolute inset-0 bg-gradient-to-br from-neutral-800 to-neutral-900 ">
           <img
@@ -62,6 +67,7 @@ const Login = () => {
         </div>
       </div>
 
+      {/* Right Side */}
       <div className="flex-1 flex items-center justify-center bg-primary-100">
         <div className="w-full max-w-md sm:mx-4 mx-2 my-2">
           <div className="bg-white rounded-2xl shadow-xl p-8">
@@ -75,12 +81,20 @@ const Login = () => {
               <h2 className="text-3xl font-bold text-neutral-900 mb-2 pt-4">
                 Sign In
               </h2>
-              <p className="text-neutral-600">Access your account to continue</p>
+              <p className="text-neutral-600">
+                Access your account to continue
+              </p>
             </div>
 
-            {/* form */}
+            {/* Error Message */}
+            {error && (
+              <div className="mb-4 text-red-600 text-center font-medium">
+                {error}
+              </div>
+            )}
 
-            <form action="" className="space-y-4" onSubmit={handleSubmit}>
+            {/* Form */}
+            <form className="space-y-4" onSubmit={handleSubmit}>
               {/* Email */}
               <div>
                 <label
@@ -103,7 +117,10 @@ const Login = () => {
 
               {/* Password */}
               <div>
-                <label htmlFor="password" className="block text-sm font-medium text-neutral-700 mb-2">
+                <label
+                  htmlFor="password"
+                  className="block text-sm font-medium text-neutral-700 mb-2"
+                >
                   Password
                 </label>
                 <div className="relative">
@@ -129,13 +146,16 @@ const Login = () => {
 
               {/* Forgot Password */}
               <div className="flex justify-end">
-                <button className="text-sm text-primary-600 hover:text-primary-700 font-medium">
+                <button
+                  type="button"
+                  className="text-sm text-primary-600 hover:text-primary-700 font-medium"
+                >
                   Forgot your password?
                 </button>
               </div>
 
-              {/* Submit Button */}
-               <button
+              {/* Submit */}
+              <button
                 type="submit"
                 disabled={isLoading}
                 className="w-full bg-primary-500 hover:bg-primary-600 disabled:bg-primary-300 text-white font-semibold py-3 px-4 rounded-lg transition-colors duration-200"
@@ -146,11 +166,10 @@ const Login = () => {
                     Signing in...
                   </div>
                 ) : (
-                  'Sign In'
+                  "Sign In"
                 )}
               </button>
             </form>
-
 
             {/* Divider */}
             <div className="my-6 flex items-center">
@@ -172,10 +191,13 @@ const Login = () => {
               </span>
             </button>
 
-            {/* Sign In Link */}
+            {/* Sign Up Link */}
             <p className="text-center text-neutral-600 mt-6">
-              Already have an account?{" "}
-              <button className="text-primary-600 hover:text-primary-700 font-medium" onClick={() => navigate("/sign-up")}>
+              Don’t have an account?{" "}
+              <button
+                className="text-primary-600 hover:text-primary-700 font-medium cursor-pointer"
+                onClick={() => navigate("/sign-up")}
+              >
                 Sign Up
               </button>
             </p>
