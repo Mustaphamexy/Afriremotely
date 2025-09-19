@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import LandingPage from './pages/LandingPage';
 import JobsPage from './pages/JobsPage';
-import SignUp from "./pages/Signup"
+import SignUp from "./pages/SignUp"
 import Login from "./pages/Login"
 import About from "./pages/About"
 import Contact from "./pages/ContactPage"
