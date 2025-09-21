@@ -1,11 +1,14 @@
 import React, { useContext } from "react";
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import UserDashboard from "../pages/Dashboard/UserDashboard";
 import CompanyDashboard from "../pages/Dashboard/CompanyDashboard";
 import AdminDashboard from "../pages/Dashboard/AdminDashboard";
+import ProfileForm from "../pages/ProfileForm";
+import CompanyProfile from "../pages/CompanyProfile";
+import AdminProfile from "../pages/AdminProfile";
 
-const ProtectedRoute = () => {
+const ProtectedRoute = ({ type }) => {
   const { user, loading } = useContext(AuthContext);
 
   if (loading) {
@@ -20,17 +23,35 @@ const ProtectedRoute = () => {
     return <Navigate to="/sign-in" replace />;
   }
 
-  // Redirect based on user accountType
-  switch (user.accountType) {
-    case "jobseeker":
-      return <UserDashboard />;
-    case "organization":
-      return <CompanyDashboard />;
-    case "admin":
-      return <AdminDashboard />;
-    default:
-      return <Navigate to="/sign-in" replace />;
+  // Determine which component to render
+  if (type === "dashboard") {
+    switch (user.accountType) {
+      case "jobseeker":
+        return <UserDashboard />;
+      case "organization":
+        return <CompanyDashboard />;
+      case "admin":
+        return <AdminDashboard />;
+      default:
+        return <Navigate to="/sign-in" replace />;
+    }
   }
+
+  if (type === "profile") {
+    switch (user.accountType) {
+      case "jobseeker":
+        return <ProfileForm />;
+      case "organization":
+        return <CompanyProfile />;
+      case "admin":
+        return <AdminProfile />;
+      default:
+        return <Navigate to="/sign-in" replace />;
+    }
+  }
+
+  // Fallback
+  return <Navigate to="/sign-in" replace />;
 };
 
 export default ProtectedRoute;

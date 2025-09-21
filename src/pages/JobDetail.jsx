@@ -146,6 +146,10 @@ const JobDetail = () => {
                   <p className="font-medium">{job.type}</p>
                 </div>
                 <div>
+                  <p className="text-neutral-500 text-sm">Job Mode</p>
+                  <p className="font-medium">{job.workMode}</p>
+                </div>
+                <div>
                   <p className="text-neutral-500 text-sm">Category</p>
                   <p className="font-medium">{job.category}</p>
                 </div>

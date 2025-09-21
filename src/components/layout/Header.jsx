@@ -10,7 +10,7 @@ import { RiLogoutCircleLine } from "react-icons/ri";
 
 
 
-const Header = () => {
+const Header = ({bgClass = "bg-black/30"}) => {
   const navigate = useNavigate();
   const { user, logout } = useAuth();
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
@@ -34,7 +34,7 @@ const Header = () => {
   }, [isProfileDropdownOpen]);
 
   return (
-    <header className='absolute top-0 left-0 right-0 z-10 backdrop-blur-sm bg-black/30 px-4 '>
+    <header className={`absolute top-0 left-0 right-0 z-10 backdrop-blur-sm ${bgClass} px-4`}>
       <div className='container mx-auto py-4'>
         {/* logo */}
         <div className='flex items-center justify-between h-16 md:h-20'>

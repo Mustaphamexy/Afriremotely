@@ -10,6 +10,7 @@ import { JobProvider } from './context/JobContext';
 import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './routes/ProtectedRoute';
 import NotFound from './pages/NotFound';
+import ProfileForm from './pages/ProfileForm';
 
 
 
@@ -26,7 +27,8 @@ function App() {
         <Route path='/about' element={<About />} />
         <Route path='/contact' element={<Contact />} />
         <Route path="/job/:id" element={<JobDetail />} />
-        <Route path='/dashboard' element={<ProtectedRoute />} />
+        <Route path='/dashboard' element={<ProtectedRoute type="dashboard" />} />
+        <Route path='/profile' element={<ProtectedRoute type="profile" />} />
         <Route path='*' element= {<NotFound />} />
       </Routes>
       </BrowserRouter>

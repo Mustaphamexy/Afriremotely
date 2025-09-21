@@ -9,6 +9,8 @@ const UserDashboard = () => {
   const { user, logout } = useContext(AuthContext);
   const { statsData, recentApplications, userApplications } = useJobContext();
   const [activeTab, setActiveTab] = useState("overview");
+  const [favoriteJobsFilter, setFavoriteJobsFilter] = useState(75);
+  const [appliedJobsFilter, setAppliedJobsFilter] = useState(60);
 
   const profileCompletion = 65;
 
@@ -34,7 +36,7 @@ const UserDashboard = () => {
           {/* Dashboard Navigation */}
           <div className="border-b border-gray-200 mb-6">
             <nav className="flex space-x-8">
-              {["overview", "applications", "profile", "reporting"].map(
+              {["overview", "applications", "favorite jobs", ].map(
                 (tab) => (
                   <button
                     key={tab}
@@ -240,225 +242,112 @@ const UserDashboard = () => {
             </div>
           )}
 
-          {activeTab === "profile" && (
-            <div className="bg-white rounded-lg shadow overflow-hidden p-6">
-              <h3 className="text-lg font-medium text-gray-800 mb-6">
-                Manage Profile
-              </h3>
-              <form className="space-y-6">
-                <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-                  <div>
-                    <label
-                      htmlFor="name"
-                      className="block text-sm font-medium text-gray-700"
-                    >
-                      Full Name
-                    </label>
-                    <input
-                      type="text"
-                      id="name"
-                      className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm"
-                      defaultValue={user?.name || ""}
-                    />
-                  </div>
-                  <div>
-                    <label
-                      htmlFor="email"
-                      className="block text-sm font-medium text-gray-700"
-                    >
-                      Email
-                    </label>
-                    <input
-                      type="email"
-                      id="email"
-                      className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm"
-                      defaultValue={user?.email || ""}
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label
-                    htmlFor="headline"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    Professional Headline
-                  </label>
-                  <input
-                    type="text"
-                    id="headline"
-                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm"
-                    placeholder="e.g. Frontend Developer"
-                  />
-                </div>
-
-                <div>
-                  <label
-                    htmlFor="bio"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    Bio/Description
-                  </label>
-                  <textarea
-                    id="bio"
-                    rows="4"
-                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm"
-                    placeholder="Tell employers about yourself..."
-                  ></textarea>
-                </div>
-
-                <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-                  <div>
-                    <label
-                      htmlFor="location"
-                      className="block text-sm font-medium text-gray-700"
-                    >
-                      Location
-                    </label>
-                    <input
-                      type="text"
-                      id="location"
-                      className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm"
-                      placeholder="e.g. New York, USA"
-                    />
-                  </div>
-                  <div>
-                    <label
-                      htmlFor="phone"
-                      className="block text-sm font-medium text-gray-700"
-                    >
-                      Phone Number
-                    </label>
-                    <input
-                      type="tel"
-                      id="phone"
-                      className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm"
-                    />
-                  </div>
-                </div>
-
-                <div className="flex justify-end">
-                  <button
-                    type="button"
-                    className="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    type="submit"
-                    className="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
-                  >
-                    Save
-                  </button>
-                </div>
-              </form>
-            </div>
-          )}
-
-          {activeTab === "reporting" && (
+          {activeTab === "favorite jobs" && (
             <div>
               <div className="bg-white rounded-lg shadow overflow-hidden mb-6">
-                <div className="px-6 py-4 border-b border-gray-200">
+                <div className="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
                   <h3 className="text-lg font-medium text-gray-800">
-                    Application Statistics
+                    My Favorite Jobs
                   </h3>
+                  <div className="flex space-x-4">
+                    <select className="border border-gray-300 rounded-md px-3 py-2 text-sm">
+                      <option>All Categories</option>
+                      <option>Technology</option>
+                      <option>Marketing</option>
+                      <option>Design</option>
+                    </select>
+                    <select className="border border-gray-300 rounded-md px-3 py-2 text-sm">
+                      <option>Recently Added</option>
+                      <option>Salary High to Low</option>
+                      <option>Salary Low to High</option>
+                    </select>
+                  </div>
                 </div>
                 <div className="p-6">
-                  <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-                    <div className="bg-teal-50 p-4 rounded-lg border border-teal-100">
-                      <p className="text-sm text-teal-800 font-medium">
-                        Total Applications
-                      </p>
-                      <p className="text-2xl font-bold text-teal-700">24</p>
-                    </div>
-                    <div className="bg-teal-50 p-4 rounded-lg border border-teal-100">
-                      <p className="text-sm text-teal-800 font-medium">
-                        Interview Rate
-                      </p>
-                      <p className="text-2xl font-bold text-teal-700">33%</p>
-                    </div>
-                    <div className="bg-teal-50 p-4 rounded-lg border border-teal-100">
-                      <p className="text-sm text-teal-800 font-medium">
-                        Rejection Rate
-                      </p>
-                      <p className="text-2xl font-bold text-teal-700">17%</p>
-                    </div>
-                    <div className="bg-teal-50 p-4 rounded-lg border border-teal-100">
-                      <p className="text-sm text-teal-800 font-medium">
-                        Avg. Response Time
-                      </p>
-                      <p className="text-2xl font-bold text-teal-700">
-                        5.2 days
-                      </p>
-                    </div>
-                  </div>
+                  {/* Favorite Jobs List */}
+                  {[
+                    {
+                      id: 1,
+                      title: "Senior React Developer",
+                      company: "TechCorp Inc.",
+                      location: "San Francisco, CA",
+                      salary: "$120,000 - $150,000",
+                      type: "Full-time",
+                      dateAdded: "Oct 12, 2023",
+                      tags: ["React", "TypeScript", "Node.js"]
+                    },
+                    {
+                      id: 2,
+                      title: "UX/UI Designer",
+                      company: "Creative Studios",
+                      location: "Remote",
+                      salary: "$80,000 - $110,000",
+                      type: "Full-time",
+                      dateAdded: "Oct 10, 2023",
+                      tags: ["Figma", "Adobe XD", "Prototyping"]
+                    },
+                    {
+                      id: 3,
+                      title: "Product Manager",
+                      company: "StartupXYZ",
+                      location: "New York, NY",
+                      salary: "$100,000 - $130,000",
+                      type: "Full-time",
+                      dateAdded: "Oct 8, 2023",
+                      tags: ["Product Strategy", "Analytics", "Agile"]
+                    }
+                  ].map((job) => (
+                    <div
+                      key={job.id}
+                      className="border border-gray-200 rounded-lg p-4 mb-4 hover:shadow-md transition-shadow"
+                    >
+                      <div className="flex justify-between items-start mb-2">
+                        <div>
+                          <h4 className="font-bold text-lg text-gray-800">{job.title}</h4>
+                          <p className="text-gray-600">{job.company}</p>
+                        </div>
+                        <button className="text-red-500 hover:text-red-700">
+                          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" />
+                          </svg>
+                        </button>
+                      </div>
+                      
+                      <div className="flex items-center text-sm text-gray-600 mb-2">
+                        <span>{job.type}</span>
+                        <span className="mx-2">•</span>
+                        <span>{job.location}</span>
+                        <span className="mx-2">•</span>
+                        <span className="font-medium text-teal-600">{job.salary}</span>
+                      </div>
 
-                  <div className="h-64 bg-gray-100 rounded-lg flex items-center justify-center mb-6">
-                    <p className="text-gray-500">
-                      Application Trend Chart Would Appear Here
-                    </p>
-                  </div>
+                      <div className="flex flex-wrap gap-2 mb-3">
+                        {job.tags.map((tag, index) => (
+                          <span key={index} className="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded">
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
 
-                  <div>
-                    <h4 className="font-medium text-gray-800 mb-4">
-                      Applications by Status
-                    </h4>
-                    <div className="space-y-3">
-                      <div>
-                        <div className="flex justify-between mb-1">
-                          <span className="text-sm font-medium text-gray-700">
-                            Applied
-                          </span>
-                          <span className="text-sm font-medium text-gray-700">
-                            12
-                          </span>
-                        </div>
-                        <div className="w-full bg-gray-200 rounded-full h-2.5">
-                          <div
-                            className="bg-teal-600 h-2.5 rounded-full"
-                            style={{ width: "50%" }}
-                          ></div>
-                        </div>
-                      </div>
-                      <div>
-                        <div className="flex justify-between mb-1">
-                          <span className="text-sm font-medium text-gray-700">
-                            Interviewing
-                          </span>
-                          <span className="text-sm font-medium text-gray-700">
-                            8
-                          </span>
-                        </div>
-                        <div className="w-full bg-gray-200 rounded-full h-2.5">
-                          <div
-                            className="bg-teal-500 h-2.5 rounded-full"
-                            style={{ width: "33%" }}
-                          ></div>
-                        </div>
-                      </div>
-                      <div>
-                        <div className="flex justify-between mb-1">
-                          <span className="text-sm font-medium text-gray-700">
-                            Rejected
-                          </span>
-                          <span className="text-sm font-medium text-gray-700">
-                            4
-                          </span>
-                        </div>
-                        <div className="w-full bg-gray-200 rounded-full h-2.5">
-                          <div
-                            className="bg-teal-400 h-2.5 rounded-full"
-                            style={{ width: "17%" }}
-                          ></div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm text-gray-500">Added on {job.dateAdded}</span>
+                        <div className="flex space-x-2">
+                          <button className="bg-teal-600 hover:bg-teal-700 text-white px-4 py-2 rounded text-sm">
+                            Apply Now
+                          </button>
+                          <button className="border border-gray-300 hover:bg-gray-50 text-gray-700 px-4 py-2 rounded text-sm">
+                            View Details
+                          </button>
                         </div>
                       </div>
                     </div>
-                  </div>
+                  ))}
                 </div>
               </div>
             </div>
           )}
-          {/* Other tabs remain the same as in the previous implementation */}
+
+          
         </main>
       </div>
       <Footer />
