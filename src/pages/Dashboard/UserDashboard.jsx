@@ -35,7 +35,7 @@ const UserDashboard = () => {
 
           {/* Dashboard Navigation */}
           <div className="border-b border-gray-200 mb-6">
-            <nav className="flex space-x-8">
+            <nav className="flex space-x-8 overflow-x-auto">
               {["overview", "applications", "favorite jobs", ].map(
                 (tab) => (
                   <button
@@ -193,7 +193,7 @@ const UserDashboard = () => {
                   <h3 className="text-lg font-medium text-gray-800">
                     My Applications
                   </h3>
-                  <div className="flex space-x-4">
+                  <div className="flex flex-col md:flex-row  gap-4">
                     <select className="border border-gray-300 rounded-md px-3 py-2 text-sm">
                       <option>All Status</option>
                       <option>Applied</option>
@@ -249,7 +249,7 @@ const UserDashboard = () => {
                   <h3 className="text-lg font-medium text-gray-800">
                     My Favorite Jobs
                   </h3>
-                  <div className="flex space-x-4">
+                  <div className="flex flex-col md:flex-row gap-4">
                     <select className="border border-gray-300 rounded-md px-3 py-2 text-sm">
                       <option>All Categories</option>
                       <option>Technology</option>

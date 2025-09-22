@@ -148,7 +148,7 @@ const CompanyDashboard = () => {
 
                     {/* Dashboard Navigation */}
                     <div className="border-b border-gray-200 mb-6">
-                        <nav className="flex space-x-8">
+                        <nav className="flex space-x-8 overflow-x-auto">
                             {["overview", "jobs", "applications", "analytics"].map((tab) => (
                                 <button
                                     key={tab}

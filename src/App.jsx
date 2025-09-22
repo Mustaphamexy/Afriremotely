@@ -12,8 +12,6 @@ import ProtectedRoute from './routes/ProtectedRoute';
 import NotFound from './pages/NotFound';
 import ProfileForm from './pages/ProfileForm';
 
-
-
 function App() {
   return (
     <AuthProvider>
@@ -29,13 +27,13 @@ function App() {
         <Route path="/job/:id" element={<JobDetail />} />
         <Route path='/dashboard' element={<ProtectedRoute type="dashboard" />} />
         <Route path='/profile' element={<ProtectedRoute type="profile" />} />
+        <Route path='/settings' element={<ProtectedRoute type="settings" />} />
+        <Route path='/notifications' element={<ProtectedRoute type="notifications" />} />
         <Route path='*' element= {<NotFound />} />
       </Routes>
       </BrowserRouter>
     </JobProvider>
     </AuthProvider>
-    
-    
   )
 }
 

@@ -7,6 +7,8 @@ import AdminDashboard from "../pages/Dashboard/AdminDashboard";
 import ProfileForm from "../pages/ProfileForm";
 import CompanyProfile from "../pages/CompanyProfile";
 import AdminProfile from "../pages/AdminProfile";
+import Settings from "../pages/Settings";
+import Notifications from "../pages/Notifications";
 
 const ProtectedRoute = ({ type }) => {
   const { user, loading } = useContext(AuthContext);
@@ -48,6 +50,14 @@ const ProtectedRoute = ({ type }) => {
       default:
         return <Navigate to="/sign-in" replace />;
     }
+  }
+
+  if (type === "settings") {
+    return <Settings />;
+  }
+
+  if (type === "notifications") {
+    return <Notifications />;
   }
 
   // Fallback
