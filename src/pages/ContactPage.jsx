@@ -49,8 +49,8 @@ const ContactPage = () => {
                 </div>
                 <div>
                   <h3 className="font-semibold text-gray-900 mb-1">Email Us</h3>
-                  <p className="text-gray-600">hello@jobportal.ng</p>
-                  <p className="text-gray-600">support@jobportal.ng</p>
+                  <p className="text-gray-600">hello@AfriRemotely.com</p>
+                  <p className="text-gray-600">support@AfriRemotely.com</p>
                 </div>
               </div>
               
