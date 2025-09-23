@@ -467,6 +467,20 @@ export const JobProvider = ({ children }) => {
     setUserApplications(userApplications.filter(app => app.id !== id));
   };
 
+  const [favourites, setFavourites] = useState([]);
+
+  const toggleFavourite = (jobId) => {
+
+    setFavourites((prev) =>
+      prev.includes(jobId)
+        ? prev.filter((id) => id !== jobId)
+        : [...prev, jobId]
+    );
+  };
+
+  const isJobFavourited = (jobId) => favourites.includes(jobId);
+
+
   const value = {
     jobs,
     filteredJobs,
@@ -479,7 +493,10 @@ export const JobProvider = ({ children }) => {
     userApplications,
     addApplication,
     updateApplicationStatus,
-    deleteApplication
+    deleteApplication,
+    favourites,
+    toggleFavourite,
+    isJobFavourited,
   };
 
   return (

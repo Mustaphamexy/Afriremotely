@@ -3,14 +3,16 @@ import { AuthContext } from "../../context/AuthContext";
 import { useJobContext } from "../../context/JobContext";
 import Header from "../../components/layout/Header";
 import Footer from "../../components/layout/Footer";
+import Loader from "../../components/layout/LoadingSpinner";
 import { Hands } from '../../components/UI/Details'
 import Modal from "../../components/UI/Modal";
 import JobForm from "../../components/forms/JobForm";
 
 const CompanyDashboard = () => {
     const { user, logout } = useContext(AuthContext);
+    const { loading } = useJobContext();
     const [activeTab, setActiveTab] = useState('overview');
-      const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const handleCreateJobClick = () => {
     setIsModalOpen(true);
@@ -101,6 +103,18 @@ const CompanyDashboard = () => {
         console.log("View job details:", jobId);
         // Add view details functionality here
     };
+
+    if (loading) {
+        return (
+            <div className="min-h-screen"> 
+                <Header />
+                <div className="flex items-center justify-center min-h-screen">
+                    <Loader />
+                </div>
+                <Footer />
+            </div>
+        );
+    }
 
     return (
         <div className="min-h-screen"> 

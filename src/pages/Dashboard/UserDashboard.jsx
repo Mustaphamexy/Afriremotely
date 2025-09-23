@@ -4,8 +4,10 @@ import { useJobContext } from "../../context/JobContext";
 import Header from "../../components/layout/Header";
 import Footer from "../../components/layout/Footer";
 import { Hands } from '../../components/UI/Details'
+import Loader from "../../components/layout/LoadingSpinner"
 
 const UserDashboard = () => {
+  const { loading } = useContext(AuthContext);
   const { user, logout } = useContext(AuthContext);
   const { statsData, recentApplications, userApplications } = useJobContext();
   const [activeTab, setActiveTab] = useState("overview");
@@ -13,6 +15,18 @@ const UserDashboard = () => {
   const [appliedJobsFilter, setAppliedJobsFilter] = useState(60);
 
   const profileCompletion = 65;
+
+  if (loading) {
+      return (
+        <div className="min-h-screen">
+          <Header bgClass="bg-black" />
+          <div className="flex items-center justify-center min-h-screen">
+            <Loader />
+          </div>
+          <Footer />
+        </div>
+      );
+    }
 
   return (
     <div className="min-h-screen ">

@@ -11,12 +11,15 @@ import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './routes/ProtectedRoute';
 import NotFound from './pages/NotFound';
 import ProfileForm from './pages/ProfileForm';
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
     <AuthProvider>
     <JobProvider>
       <BrowserRouter>
+      <ToastContainer position="top-right" autoClose={3000} />
       <Routes>
         <Route path='/' element={<LandingPage />} />
         <Route path='/jobs' element={<JobsPage />} />

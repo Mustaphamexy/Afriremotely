@@ -2,6 +2,8 @@ import React, { useState, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import Header from "../components/layout/Header";
 import Footer from "../components/layout/Footer";
+import { useJobContext } from "../context/JobContext"; 
+import Loader from "../components/layout/LoadingSpinner";
 import { RiLock2Fill } from "react-icons/ri";
 import { IoNotifications, IoSettingsSharp   } from "react-icons/io5";
 import { MdMessage } from "react-icons/md";
@@ -15,7 +17,7 @@ import { FaBriefcase } from "react-icons/fa";
 const Notifications = () => {
   const { user } = useContext(AuthContext);
   const [activeFilter, setActiveFilter] = useState("all");
-  
+  const { loading } = useJobContext(); 
   const [notifications, setNotifications] = useState([
     {
       id: 1,
@@ -123,6 +125,18 @@ const Notifications = () => {
       default: return <IoNotifications className="text-primary" />;
     }
   };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-secondary-300">
+        <Header bgClass="bg-black"/>
+        <div className="flex items-center justify-center min-h-screen">
+          <Loader />
+        </div>
+        <Footer />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-secondary-300">

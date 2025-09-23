@@ -4,10 +4,23 @@ import JobList from '../components/jobs/JobList';
 import Header from '../components/layout/Header';
 import  JobFilters  from '../components/jobs/JobFilters';
 import Footer from "../components/layout/Footer"
+import Loader from "../components/layout/LoadingSpinner";
 
 
 const JobsPageContent = () => {
-    const { filteredJobs, filters } = useJobContext();
+  const { filteredJobs, filters, loading } = useJobContext();
+
+  if (loading) {
+    return (
+      <div className='min-h-screen'>
+        <Header />
+        <div className="flex items-center justify-center min-h-screen">
+          <Loader />
+        </div>
+        <Footer />
+      </div>
+      );
+  }
 
   return (
     <div className=' min-h-screen '>

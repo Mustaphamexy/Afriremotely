@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { toast } from "react-toastify";
+
 
 const JobForm = ({ onSuccess, onCancel }) => {
   const [formData, setFormData] = useState({
@@ -92,13 +94,13 @@ const JobForm = ({ onSuccess, onCancel }) => {
       datePosted: new Date().toISOString().split('T')[0]
     };
     console.log('Job Data:', cleanedData);
-    alert('Job posted successfully!');
+    toast.success('Job posted successfully!');
     onSuccess(); // Close the modal
   };
 
   const saveDraft = () => {
     console.log('Draft saved:', formData);
-    alert('Draft saved successfully!');
+    toast.success('Draft saved successfully!');
     onSuccess(); // Close the modal
   };
 

@@ -3,6 +3,7 @@ import { AuthContext } from "../../context/AuthContext";
 import { useJobContext } from "../../context/JobContext";
 import Header from "../../components/layout/Header";
 import Footer from "../../components/layout/Footer";
+import Loader from "../../components/layout/LoadingSpinner";
 import { Hands } from '../../components/UI/Details'
 import { HiOutlineUsers } from "react-icons/hi";
 import { FaRegBuilding } from "react-icons/fa";
@@ -13,6 +14,7 @@ import JobForm from "../../components/forms/JobForm";
 
 const AdminDashboard = () => {
   const { user, logout } = useContext(AuthContext);
+  const { loading } = useJobContext();
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -30,6 +32,18 @@ const AdminDashboard = () => {
   const handleModalClose = () => {
     setIsModalOpen(false);
   };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen">
+        <Header />
+        <div className="flex items-center justify-center min-h-screen">
+          <Loader />
+        </div>
+        <Footer />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen">
