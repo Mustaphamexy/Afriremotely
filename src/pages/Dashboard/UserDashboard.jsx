@@ -37,7 +37,7 @@ const UserDashboard = () => {
           <div className="mb-8">
             <div className="flex gap-2">
                             <h2 className="text-2xl font-bold text-white">
-                        Welcome, {user.name} 
+                        Welcome, {user.username} 
                       </h2>
                       <img src={Hands} alt="Waving hand"
                             className=" w-[30px] object-contain" />

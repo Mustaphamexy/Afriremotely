@@ -240,9 +240,9 @@ const JobDetail = () => {
               </div>
 
               <div className="mb-6">
-                <h2 className="text-xl font-bold mb-3">Benefits</h2>
+                <h2 className="text-xl font-bold mb-3">Tags</h2>
                 <div className="flex flex-wrap gap-2">
-                  {job.benefits.map((benefit, index) => (
+                  {job.tags.map((benefit, index) => (
                     <span
                       key={index}
                       className="bg-primary-100 text-black px-3 py-1 rounded-full text-sm"

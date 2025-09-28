@@ -7,9 +7,6 @@ import { CgProfile } from "react-icons/cg";
 import { IoMdSettings } from "react-icons/io";
 import { RiLogoutCircleLine } from "react-icons/ri";
 
-
-
-
 const Header = ({bgClass = "bg-black/30"}) => {
   const navigate = useNavigate();
   const { user, logout } = useAuth();
@@ -32,6 +29,23 @@ const Header = ({bgClass = "bg-black/30"}) => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [isProfileDropdownOpen]);
+
+  // Get user display name (use username if name doesn't exist)
+  const getUserDisplayName = () => {
+    return user?.username || 'User';
+  };
+
+  // Get first name for display
+  const getFirstName = () => {
+    const displayName = getUserDisplayName();
+    return displayName.split(' ')[0];
+  };
+
+  // Get user avatar or default
+  const getUserAvatar = () => {
+    // You can add a default avatar or use initials
+    return `https://ui-avatars.com/api/?name=${getUserDisplayName()}&background=0D8ABC&color=fff`;
+  };
 
   return (
     <header className={`absolute top-0 left-0 right-0 z-10 backdrop-blur-sm ${bgClass} px-4`}>
@@ -62,8 +76,12 @@ const Header = ({bgClass = "bg-black/30"}) => {
                   onClick={() => setIsProfileDropdownOpen(!isProfileDropdownOpen)}
                   className="flex items-center space-x-2 focus:outline-none text-white hover:text-primary-400 transition-colors"
                 >
-                  <img className="h-10 w-10 rounded-full border-2 border-white/20" src={user.avatar} alt={user.name} />
-                  <span className="hidden sm:block">{user.name.split(' ')[0]}</span>
+                  <img 
+                    className="h-10 w-10 rounded-full border-2 border-white/20" 
+                    src={getUserAvatar()} 
+                    alt={getUserDisplayName()} 
+                  />
+                  <span className="hidden sm:block">{getFirstName()}</span>
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
                   </svg>
@@ -72,24 +90,25 @@ const Header = ({bgClass = "bg-black/30"}) => {
                 {isProfileDropdownOpen && (
                   <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-20 border border-gray-200">
                     <div className="px-4 py-2 border-b border-gray-100">
-                      <p className="text-sm font-medium text-gray-900">{user.name}</p>
-                      <p className="text-xs text-gray-500">{user.email}</p>
+                      <p className="text-sm font-medium text-gray-900">{getUserDisplayName()}</p>
+                      <p className="text-xs text-gray-500">{user.email || 'No email'}</p>
+                      <p className="text-xs text-gray-400 capitalize">{user?.role || 'user'}</p>
                     </div>
-                    <div className='flex items-center ml-4 hover:bg-teal-50  cursor-pointer' onClick={() => {navigate('/dashboard'); setIsProfileDropdownOpen(false);}}>
+                    <div className='flex items-center ml-4 hover:bg-teal-50 cursor-pointer' onClick={() => {navigate('/dashboard'); setIsProfileDropdownOpen(false);}}>
                       <MdDashboard className='w-4 h-4 text-primary'/>
-                      <a className="block px-2 py-2 text-sm text-gray-700 hover:text-teal-600 ">Dashboard</a>
+                      <span className="block px-2 py-2 text-sm text-gray-700 hover:text-teal-600">Dashboard</span>
                     </div>
-                    <div className='flex items-center ml-4 hover:bg-teal-50  cursor-pointer' onClick={() => {navigate('/profile'); setIsProfileDropdownOpen(false);}}>
-                      <CgProfile  className='w-4 h-4 text-primary'/>
-                      <a  className="block px-2 py-2 text-sm text-gray-700 hover:text-teal-600 ">Profile</a>
+                    <div className='flex items-center ml-4 hover:bg-teal-50 cursor-pointer' onClick={() => {navigate('/profile'); setIsProfileDropdownOpen(false);}}>
+                      <CgProfile className='w-4 h-4 text-primary'/>
+                      <span className="block px-2 py-2 text-sm text-gray-700 hover:text-teal-600">Profile</span>
                     </div>
-                    <div onClick={() => {navigate('/Notifications'); setIsProfileDropdownOpen(false);}} className='flex items-center ml-4 hover:bg-teal-50  cursor-pointer'>
-                      <MdOutlineNotificationsActive  className='w-4 h-4 text-primary'/>
-                      <a className="block px-2 py-2 text-sm text-gray-700 hover:text-teal-600">Notifications</a>
+                    <div onClick={() => {navigate('/notifications'); setIsProfileDropdownOpen(false);}} className='flex items-center ml-4 hover:bg-teal-50 cursor-pointer'>
+                      <MdOutlineNotificationsActive className='w-4 h-4 text-primary'/>
+                      <span className="block px-2 py-2 text-sm text-gray-700 hover:text-teal-600">Notifications</span>
                     </div>
                     <div className='flex items-center ml-4 hover:bg-teal-50 cursor-pointer' onClick={() => {navigate('/settings'); setIsProfileDropdownOpen(false);}}>
-                      <IoMdSettings  className='w-4 h-4 text-primary'/>
-                      <a  className="block px-2 py-2 text-sm text-gray-700 hover:bg-teal-50 hover:text-teal-600">Settings</a>
+                      <IoMdSettings className='w-4 h-4 text-primary'/>
+                      <span className="block px-2 py-2 text-sm text-gray-700 hover:text-teal-600">Settings</span>
                     </div>
                     <button 
                       onClick={() => {
@@ -97,7 +116,7 @@ const Header = ({bgClass = "bg-black/30"}) => {
                         setIsProfileDropdownOpen(false);
                         navigate('/');
                       }}
-                      className=" w-full flex items-center gap-2 text-left px-4 py-2 text-sm text-gray-700 hover:bg-teal-50 hover:text-teal-600 border-t border-gray-100"
+                      className="w-full flex items-center gap-2 text-left px-4 py-2 text-sm text-gray-700 hover:bg-teal-50 hover:text-teal-600 border-t border-gray-100"
                     >
                       <RiLogoutCircleLine className='w-4 h-4 text-primary' /> Sign out
                     </button>

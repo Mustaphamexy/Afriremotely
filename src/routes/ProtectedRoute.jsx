@@ -27,10 +27,10 @@ const ProtectedRoute = ({ type }) => {
 
   // Determine which component to render
   if (type === "dashboard") {
-    switch (user.accountType) {
-      case "jobseeker":
+    switch (user.role) {
+      case "applicant":
         return <UserDashboard />;
-      case "organization":
+      case "recruiter":
         return <CompanyDashboard />;
       case "admin":
         return <AdminDashboard />;
@@ -40,10 +40,10 @@ const ProtectedRoute = ({ type }) => {
   }
 
   if (type === "profile") {
-    switch (user.accountType) {
-      case "jobseeker":
+    switch (user.role) {
+      case "applicant":
         return <ProfileForm />;
-      case "organization":
+      case "recruiter":
         return <CompanyProfile />;
       case "admin":
         return <AdminProfile />;

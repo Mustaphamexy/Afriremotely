@@ -1,10 +1,50 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useJobContext } from "../../context/JobContext";
 import { FiSearch, FiMapPin } from "react-icons/fi";
 import Button from "../UI/Button";
+import { locationAPI, categoryAPI } from "../../services/api"; // Adjust import path as needed
 
 export const JobFilters = () => {
   const { filters, updateFilters } = useJobContext();
+  const [locations, setLocations] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState({
+    locations: false,
+    categories: false
+  });
+
+  // Fetch locations from API
+  const fetchLocations = async () => {
+    setLoading(prev => ({ ...prev, locations: true }));
+    try {
+      const response = await locationAPI.getAllLocations();
+      setLocations(response.data);
+    } catch (error) {
+      console.error("Error fetching locations:", error);
+      // You might want to show an error message to the user
+    } finally {
+      setLoading(prev => ({ ...prev, locations: false }));
+    }
+  };
+
+  // Fetch categories from API
+  const fetchCategories = async () => {
+    setLoading(prev => ({ ...prev, categories: true }));
+    try {
+      const response = await categoryAPI.getAllCategories();
+      setCategories(response.data);
+    } catch (error) {
+      console.error("Error fetching categories:", error);
+      // You might want to show an error message to the user
+    } finally {
+      setLoading(prev => ({ ...prev, categories: false }));
+    }
+  };
+
+  useEffect(() => {
+    fetchLocations();
+    fetchCategories();
+  }, []);
 
   const handleSearchChange = (e) => {
     updateFilters({ search: e.target.value });
@@ -79,18 +119,19 @@ export const JobFilters = () => {
             className="w-full pl-10 pr-4 py-2 border bg-neutral-100 border-neutral-400 rounded-md focus:ring-2 focus:ring-primary-500 focus:border-primary-500 focus:outline-none "
             value={filters.location}
             onChange={handleLocationChange}
+            disabled={loading.locations}
           >
-            <option value="">Choose city</option>
-            <option value="New-York, USA">New-York, USA</option>
-            <option value="Los-Angeles, USA">Los-Angeles, USA</option>
-            <option value="Texas, USA">Texas, USA</option>
-            <option value="Florida, USA">Florida, USA</option>
-            <option value="Boston, USA">Boston, USA</option>
+            <option value="">{loading.locations ? "Loading locations..." : "Choose location"}</option>
+            {locations.map((location) => (
+              <option key={location.id} value={location.name}>
+                {location.name}
+              </option>
+            ))}
           </select>
         </div>
       </div>
 
-      {/* category */}
+      {/* Category */}
       <div className="mb-4">
         <label className="block text-md font-medium text-neutral-800 mb-2">
           Category
@@ -99,17 +140,18 @@ export const JobFilters = () => {
           value={filters.category}
           onChange={handleCategoryChange}
           className="w-full pl-2 py-2 border bg-neutral-100 border-neutral-400 rounded-md focus:ring-2 focus:ring-primary-500 focus:border-primary-500 focus:outline-none "
+          disabled={loading.categories}
         >
-          <option value="">All Categories</option>
-          <option value="Hotels & Tourism">Hotels & Tourism</option>
-          <option value="Media">Media</option>
-          <option value="Construction">Construction</option>
-          <option value="Commerce">Commerce</option>
-          <option value="Financial services">Financial services</option>
+          <option value="">{loading.categories ? "Loading categories..." : "All Categories"}</option>
+          {categories.map((category) => (
+            <option key={category.id} value={category.name}>
+              {category.name}
+            </option>
+          ))}
         </select>
       </div>
 
-        {/* Mode */}
+      {/* Work Mode */}
       <div className="mb-4">
         <label className="block text-sm font-medium text-gray-700 mb-2">
           Work Mode
@@ -142,13 +184,13 @@ export const JobFilters = () => {
         </div>
       </div>
 
-      {/* Job type */}
+      {/* Job Type */}
       <div className="mb-4">
         <label className="block text-sm font-medium text-gray-700 mb-2">
           Job Type
         </label>
         <div className="space-y-2">
-          {[ 'Full time', 'Part time'].map((type) => (
+          {['Full time', 'Part time'].map((type) => (
             <label key={type} className="flex items-center cursor-pointer">
               <input
                 type="radio"

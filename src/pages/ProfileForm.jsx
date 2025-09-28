@@ -51,7 +51,7 @@ const ProfileForm = () => {
     if (user) {
       setFormData(prev => ({
         ...prev,
-        fullName: user.name || '',
+        fullName: user.username || '',
         email: user.email || ''
       }));
     }

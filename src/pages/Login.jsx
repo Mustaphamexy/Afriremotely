@@ -6,7 +6,7 @@ import { useAuth } from "../context/AuthContext";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { login } = useAuth(); // ✅ get login from AuthContext
+  const { login } = useAuth();
 
   const [formData, setFormData] = useState({
     email: "",
@@ -22,6 +22,10 @@ const Login = () => {
       ...prev,
       [name]: value,
     }));
+
+    if (error) {
+      setError("");
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -30,15 +34,29 @@ const Login = () => {
     setIsLoading(true);
 
     const { email, password } = formData;
-    const result = await login(email, password); // ✅ call AuthContext login
 
-    if (result.success) {
-      navigate("/dashboard"); // ✅ redirect to dashboard
-    } else {
-      setError(result.error || "Invalid credentials");
+    try {
+      const result = await login(email, password);
+
+      if (result.success) {
+        // Navigate to dashboard on successful login
+        navigate("/dashboard");
+      } else {
+        // Handle specific error cases
+        if (result.error && typeof result.error === 'object') {
+          // Handle Django REST framework error format
+          const errorMessage = Object.values(result.error).flat().join(', ');
+          setError(errorMessage || "Login failed");
+        } else {
+          setError(result.error || "Invalid credentials");
+        }
+      }
+    } catch (err) {
+      setError("An unexpected error occurred");
+      console.error('Login error:', err);
+    } finally {
+      setIsLoading(false);
     }
-
-    setIsLoading(false);
   };
 
   const handleGoogleLogin = () => {
@@ -88,30 +106,32 @@ const Login = () => {
 
             {/* Error Message */}
             {error && (
-              <div className="mb-4 text-red-600 text-center font-medium">
-                {error}
+              <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg">
+                <p className="text-red-600 text-sm text-center font-medium">
+                  {error}
+                </p>
               </div>
             )}
 
             {/* Form */}
             <form className="space-y-4" onSubmit={handleSubmit}>
-              {/* Email */}
+              {/* Email/Username Field */}
               <div>
                 <label
                   htmlFor="email"
                   className="block text-sm font-medium text-neutral-700 mb-2"
                 >
-                  Email Address
+                  Email or Username
                 </label>
                 <input
-                  type="email"
+                  type="text"
                   id="email"
                   name="email"
                   required
                   value={formData.email}
                   onChange={handleInputChange}
                   className="w-full px-4 py-3 border-2 border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent focus:outline-none transition-colors"
-                  placeholder="Enter your email"
+                  placeholder="Enter your email or username"
                 />
               </div>
 
@@ -177,6 +197,7 @@ const Login = () => {
               <span className="px-4 text-neutral-500 text-sm">or</span>
               <div className="flex-1 border-t border-neutral-300"></div>
             </div>
+
             <button
               onClick={handleGoogleLogin}
               className="w-full flex items-center justify-center px-4 py-3 border border-neutral-300 rounded-lg hover:bg-neutral-50 transition-colors duration-200"
@@ -193,7 +214,7 @@ const Login = () => {
 
             {/* Sign Up Link */}
             <p className="text-center text-neutral-600 mt-6">
-              Don’t have an account?{" "}
+              Don't have an account?{" "}
               <button
                 className="text-primary-600 hover:text-primary-700 font-medium cursor-pointer"
                 onClick={() => navigate("/sign-up")}
