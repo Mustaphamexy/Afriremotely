@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useJobContext } from "../../context/JobContext";
 import { FiSearch, FiMapPin } from "react-icons/fi";
 import Button from "../UI/Button";
-import { locationAPI, categoryAPI } from "../../services/api"; // Adjust import path as needed
+import { locationAPI, categoryAPI } from "../../services/api";
 
 export const JobFilters = () => {
   const { filters, updateFilters } = useJobContext();
@@ -20,8 +20,6 @@ export const JobFilters = () => {
       const response = await locationAPI.getAllLocations();
       setLocations(response.data);
     } catch (error) {
-      console.error("Error fetching locations:", error);
-      // You might want to show an error message to the user
     } finally {
       setLoading(prev => ({ ...prev, locations: false }));
     }
@@ -34,8 +32,6 @@ export const JobFilters = () => {
       const response = await categoryAPI.getAllCategories();
       setCategories(response.data);
     } catch (error) {
-      console.error("Error fetching categories:", error);
-      // You might want to show an error message to the user
     } finally {
       setLoading(prev => ({ ...prev, categories: false }));
     }

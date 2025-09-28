@@ -87,7 +87,6 @@ const SignUp = () => {
       );
 
       if (result.success) {
-        console.log("Signup successful:", result.data);
 
         // Reset form
         setFormData({
@@ -118,11 +117,9 @@ const SignUp = () => {
         } else {
           setErrors({ submit: "Signup failed. Please try again." });
         }
-        console.error("Signup error:", result.error);
       }
     } catch (error) {
       setErrors({ submit: "An unexpected error occurred. Please try again." });
-      console.error("Unexpected error:", error);
     } finally {
       setIsLoading(false);
     }

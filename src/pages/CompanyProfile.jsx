@@ -139,7 +139,6 @@ const CompanyProfile = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Company Profile Data:', formData);
     alert('Company profile saved successfully!');
     // Handle form submission here
   };

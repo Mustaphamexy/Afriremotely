@@ -53,7 +53,6 @@ const Login = () => {
       }
     } catch (err) {
       setError("An unexpected error occurred");
-      console.error('Login error:', err);
     } finally {
       setIsLoading(false);
     }

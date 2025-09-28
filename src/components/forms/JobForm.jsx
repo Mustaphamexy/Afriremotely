@@ -138,7 +138,6 @@ const JobForm = ({ onSuccess, onCancel }) => {
             .filter(Boolean) || [];
         setExperienceLevels(experienceLevelsData);
       } catch (error) {
-        console.error("Error fetching form data:", error);
         toast.error("Failed to load form data");
 
         // Fallback to default values if API fails
@@ -263,10 +262,6 @@ const JobForm = ({ onSuccess, onCancel }) => {
       return;
     }
 
-    // Debug logging to check form data
-    console.log("Form data before submission:", formData);
-    console.log("Selected category:", formData.category);
-    console.log("Available categories:", categories);
 
     // Transform to match backend schema
     const payload = {
@@ -290,10 +285,7 @@ const JobForm = ({ onSuccess, onCancel }) => {
         formData.requirements.filter((req) => req.trim()).join("\n") || null,
     };
 
-    console.log("Final Payload:", JSON.stringify(payload, null, 2));
-
     // Final validation log
-    console.log("Payload being sent:", payload);
 
     if (!payload.category_id) {
       toast.error("Category is required. Please select a valid category.");
@@ -344,7 +336,6 @@ const JobForm = ({ onSuccess, onCancel }) => {
     existingDrafts.push(draftData);
     localStorage.setItem("jobDrafts", JSON.stringify(existingDrafts));
 
-    console.log("Draft saved:", draftData);
     toast.success("Draft saved successfully!");
     onSuccess();
   };
@@ -401,7 +392,6 @@ const JobForm = ({ onSuccess, onCancel }) => {
               <select
                 value={formData.category}
                 onChange={(e) => {
-                  console.log("Category selected:", e.target.value);
                   handleInputChange("category", e.target.value);
                 }}
                 className="w-full px-3 py-2 border border-neutral-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"

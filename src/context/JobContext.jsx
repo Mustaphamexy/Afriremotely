@@ -63,7 +63,6 @@ export const JobProvider = ({ children }) => {
       setError(null);
     } catch (err) {
       setError('Failed to fetch jobs');
-      console.error('Error fetching jobs:', err);
     } finally {
       setLoading(false);
     }
@@ -75,7 +74,6 @@ export const JobProvider = ({ children }) => {
       const response = await categoryAPI.getAllCategories();
       setCategories(response.data);
     } catch (err) {
-      console.error('Error fetching categories:', err);
     }
   };
 
@@ -85,7 +83,6 @@ export const JobProvider = ({ children }) => {
       const response = await locationAPI.getAllLocations();
       setLocations(response.data);
     } catch (err) {
-      console.error('Error fetching locations:', err);
     }
   };
 
@@ -168,7 +165,6 @@ export const JobProvider = ({ children }) => {
         requirements: []
       };
     } catch (err) {
-      console.error('Error fetching job:', err);
       return null;
     }
   };

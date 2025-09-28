@@ -34,7 +34,6 @@ const JobDetail = () => {
         const jobData = await getJobById(id);
         setJob(jobData);
       } catch (error) {
-        console.error("Error fetching job:", error);
       }
     };
 

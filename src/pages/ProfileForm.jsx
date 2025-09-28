@@ -149,7 +149,6 @@ const ProfileForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Profile Data:', formData);
     alert('Profile saved successfully!');
     // Handle form submission here
   };
