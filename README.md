@@ -1,12 +1,58 @@
-# React + Vite
+# AfriRemotely – Interactive Job Board Platform
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Overview
 
-Currently, two official plugins are available:
+AfriRemotely is a real-world project designed to build an interactive job board platform (Web, Mobile, or PWA). It connects job seekers with remote and onsite opportunities across Africa, while providing an intuitive and accessible platform to explore, filter, and apply for jobs.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This project gives hands-on experience in:
+- Building responsive, feature-rich applications with React
+- Managing global state with Context API for scalability
+- Designing accessible and mobile-first interfaces with Tailwind CSS
+- Integrating real-world backend APIs for job postings
 
-## Expanding the ESLint configuration
+## Project Goals
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### API Integration
+- Dynamically fetch job postings from a backend API
+- Handle loading states and error messages gracefully
+
+### Advanced Filtering
+- Filter by Category (e.g., Development, Design, Marketing)
+- Filter by Location (Remote, Hybrid, Onsite)
+- Filter by Experience Level (Entry-Level, Mid-Level, Senior)
+
+### Responsive & Accessible Design
+- Optimized for desktop, tablet, and mobile devices
+- Accessible navigation with ARIA guidelines
+
+### Job Applications
+- Clean and user-friendly application forms
+- Input validation to prevent errors and improve accuracy
+
+## Technologies Used
+
+- **React / React Native** → UI development
+- **Context API** → Global state management
+- **Tailwind CSS** → Modern responsive styling
+- **Axios / Fetch API** → API data fetching
+- **Vercel / Netlify** → Deployment platform
+
+## Key Features
+
+### API Data Integration
+- Fetch and display real job postings dynamically
+- Implement error handling and loading states
+
+### Filtering Options
+- Category-based job search
+- Location-based filtering for relevance
+- Experience-level filtering for better matching
+
+###  Responsive Design
+- Mobile-first UI
+- Accessible forms and navigation
+
+###  Job Application Forms
+- Validated input fields
+- Simple and seamless application submission
+
