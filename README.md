@@ -54,5 +54,5 @@ This project gives hands-on experience in:
 
 ###  Job Application Forms
 - Validated input fields
-- Simple and seamless application submission
+- Simple and seamless application submission.
 
