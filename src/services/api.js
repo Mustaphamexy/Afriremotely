@@ -107,4 +107,34 @@ getAllExperienceLevels: () => api.get('/jobs/experience_level/'),
   getExperienceLevelById: (id) => api.get(`/jobs/experience_level/${id}/`),
 };
 
+// Add to your existing api.js file
+export const applicantProfileAPI = {
+  // Get all applicant profiles (for the current user)
+  getUserProfile: () => api.get('/usersapplicant-profiles/'),
+  
+  // Get applicant profile by ID
+  getProfileById: (id) => api.get(`/usersapplicant-profiles/${id}/`),
+  
+  // Create new applicant profile
+  createProfile: (data) => api.post('/usersapplicant-profiles/', data, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  }),
+  
+  // Update existing applicant profile
+  updateProfile: (id, data) => api.put(`/usersapplicant-profiles/${id}/`, data, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  }),
+  
+  // Partial update applicant profile
+  patchProfile: (id, data) => api.patch(`/usersapplicant-profiles/${id}/`, data, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  }),
+};
+
 export default api;

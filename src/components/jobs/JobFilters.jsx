@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useJobContext } from "../../context/JobContext";
+import { useLocation } from "react-router-dom";
 import { FiSearch, FiMapPin } from "react-icons/fi";
 import Button from "../UI/Button";
 import { locationAPI, categoryAPI } from "../../services/api";
 
 export const JobFilters = () => {
   const { filters, updateFilters } = useJobContext();
+  const location = useLocation();
   const [locations, setLocations] = useState([]);
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState({
@@ -13,13 +15,34 @@ export const JobFilters = () => {
     categories: false
   });
 
+  // Parse URL parameters and update filters
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    
+    const urlFilters = {};
+    if (searchParams.get('search')) urlFilters.search = searchParams.get('search');
+    if (searchParams.get('location')) urlFilters.location = searchParams.get('location');
+    if (searchParams.get('category')) urlFilters.category = searchParams.get('category');
+    
+    if (Object.keys(urlFilters).length > 0) {
+      updateFilters(urlFilters);
+    }
+  }, [location.search, updateFilters]);
+
   // Fetch locations from API
   const fetchLocations = async () => {
     setLoading(prev => ({ ...prev, locations: true }));
     try {
       const response = await locationAPI.getAllLocations();
-      setLocations(response.data);
+      const locationsData = response.data?.map((loc) => ({
+        id: loc.id,
+        name: `${loc.city}, ${loc.country}`,
+        city: loc.city,
+        country: loc.country,
+      })) || [];
+      setLocations(locationsData);
     } catch (error) {
+      console.error("Failed to fetch locations:", error);
     } finally {
       setLoading(prev => ({ ...prev, locations: false }));
     }
@@ -30,8 +53,9 @@ export const JobFilters = () => {
     setLoading(prev => ({ ...prev, categories: true }));
     try {
       const response = await categoryAPI.getAllCategories();
-      setCategories(response.data);
+      setCategories(response.data || []);
     } catch (error) {
+      console.error("Failed to fetch categories:", error);
     } finally {
       setLoading(prev => ({ ...prev, categories: false }));
     }
